@@ -5,17 +5,22 @@ const APP = {
         const button = document.querySelector('.get-weather');
         button.addEventListener('click', APP.fetchWeatherInfo);
         APP.fetchWeatherInfo();
+        APP.clearError();
     },
     async fetchWeatherInfo() {
         const searchInput = document.querySelector('#search');
         let location = searchInput.value;
         if (!location)
             location = 'London';
-
-        const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=8a8e7d48b0ad4471868110711232004&q=${location}`, { mode: 'cors' })
-        let json = await response.json();
-        json = APP.processJson(json);
-        APP.displayData(json);
+        try {
+            const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=8a8e7d48b0ad4471868110711232004&q=${location}`, { mode: 'cors' })
+            let json = await response.json();
+            json = APP.processJson(json);
+            APP.clearError();
+            APP.displayData(json);
+        } catch (err) {
+            APP.handleError(err);
+        }
     },
     processJson(data) {
         let json = {};
@@ -55,6 +60,14 @@ const APP = {
         todayType.textContent = data.weatherToday;
         humidity.textContent = "Humidity: " + data.humidity + " %";
         windSpeed.textContent = "Wind Speed: " + data.windkph + " kph";
+    },
+    handleError(err) {
+        const errorSpan = document.querySelector('.error');
+        errorSpan.textContent = 'Please input valid city!'
+    },
+    clearError() {
+        const errorSpan = document.querySelector('.error');
+        errorSpan.textContent = '';
     }
 };
 

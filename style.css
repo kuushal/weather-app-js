@@ -27,6 +27,9 @@ input[type="search"] {
     width: 200px;
     height: 30px;
     margin-right: 0.3rem;
+    font-size: 1rem;
+    background-color: #343333;
+    color: #fff;
 }
 
 .get-weather {
@@ -63,4 +66,9 @@ i.fa:hover {
 
 todayImg {
     margin: 0;
+}
+
+.error {
+    padding-top: 1rem;
+    color: red;
 }
