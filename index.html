@@ -8,11 +8,25 @@
     <title>Weather App</title>
     <link rel="stylesheet" href="style.css">
     <script src="./main.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
-    <input type="search" name="search" id="search">
-    <button class="get-weather">Get weather</button>
+    <main>
+        <input type="search" name="search" id="search">
+        <button class="get-weather"><i class="fa fa-search "></i></button>
+        <p class="heading"></p>
+        <h1 class="temperature"></h1>
+        <div class="weather-today">
+            <img class="todayImg" src="" alt="">
+            <p class="type"></p>
+        </div>
+        <p class="humidity"></p>
+        <p class="wind-speed"></p>
+
+    </main>
 </body>
 
 </html>
