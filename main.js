@@ -1,9 +1,14 @@
+// https://www.weatherapi.com/docs/
 // 8a8e7d48b0ad4471868110711232004
-// https://source.unsplash.com/1600x900/?
+let json = {};
 const APP = {
     init() {
         const button = document.querySelector('.get-weather');
+        const celcius = document.querySelector('.get-celcious');
+        const farenhit = document.querySelector('.get-farenhit');
         button.addEventListener('click', APP.fetchWeatherInfo);
+        celcius.addEventListener('click', APP.getTemperatureInCelcious);
+        farenhit.addEventListener('click', APP.getTemperatureInFarenhit);
         APP.fetchWeatherInfo();
         APP.clearError();
     },
@@ -23,7 +28,7 @@ const APP = {
         }
     },
     processJson(data) {
-        let json = {};
+
         json.imageURL = data.current.condition.icon;
         json.weatherToday = data.current.condition.text;
         json.feelsLikeC = data.current.feelslike_c;
@@ -38,7 +43,7 @@ const APP = {
         json.currentTime = data.location.localtime;
         json.backgroundImage = `https://source.unsplash.com/1600x900/?${json.city}`;
 
-        console.log(json)
+        // console.log(json)
         return json;
 
     },
@@ -51,8 +56,9 @@ const APP = {
         const humidity = document.querySelector('.humidity');
         const windSpeed = document.querySelector('.wind-speed');
         const string = `url('${data.backgroundImage}')`;
+        const searchInput = document.querySelector('#search');
 
-        console.log(data.backgroundImage)
+        // console.log(data.backgroundImage)
         body.style.background = data.backgroundImage = string;
         heading.textContent = `Weather in ${data.city}`;
         temperature.textContent = data.tempc + ' °C';
@@ -60,6 +66,7 @@ const APP = {
         todayType.textContent = data.weatherToday;
         humidity.textContent = "Humidity: " + data.humidity + " %";
         windSpeed.textContent = "Wind Speed: " + data.windkph + " kph";
+        searchInput.value = "";
     },
     handleError(err) {
         const errorSpan = document.querySelector('.error');
@@ -68,7 +75,15 @@ const APP = {
     clearError() {
         const errorSpan = document.querySelector('.error');
         errorSpan.textContent = '';
-    }
+    },
+    getTemperatureInCelcious() {
+        const temperature = document.querySelector('.temperature');
+        temperature.textContent = json.tempc + ' °C';
+    },
+    getTemperatureInFarenhit() {
+        const temperature = document.querySelector('.temperature');
+        temperature.textContent = json.tempf + ' °F';
+    },
 };
 
 APP.init();
