@@ -23,6 +23,7 @@ const APP = {
             json = APP.processJson(json);
             APP.clearError();
             APP.displayData(json);
+            APP.setBackgroundImage(json.city);
         } catch (err) {
             APP.handleError(err);
         }
@@ -41,10 +42,19 @@ const APP = {
         json.country = data.location.country;
         json.city = data.location.name;
         json.currentTime = data.location.localtime;
-        json.backgroundImage = `https://source.unsplash.com/1600x900/?${json.city}`;
+        // json.backgroundImage = `https://source.unsplash.com/1600x900/?${json.city}`;
 
         // console.log(json)
         return json;
+        // this.fetchBackgroundImage();
+
+    },
+    async setBackgroundImage(city) {
+        const spinner = document.querySelector('.loader');
+        spinner.style.display = 'block';
+        const url = await fetch(`https://source.unsplash.com/1600x900/?${json.city}`);
+        spinner.style.display = 'none';
+        document.body.style.background = `url(${url.url})`;
 
     },
     displayData(data) {
@@ -58,8 +68,7 @@ const APP = {
         const string = `url('${data.backgroundImage}')`;
         const searchInput = document.querySelector('#search');
 
-        // console.log(data.backgroundImage)
-        body.style.background = data.backgroundImage = string;
+        // body.style.background = data.backgroundImage = string;
         heading.textContent = `Weather in ${data.city}`;
         temperature.textContent = data.tempc + ' °C';
         todayImg.src = data.imageURL;
