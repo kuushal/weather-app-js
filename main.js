@@ -7,6 +7,13 @@ const APP = {
         const celcius = document.querySelector('.get-celcious');
         const farenhit = document.querySelector('.get-farenhit');
         button.addEventListener('click', APP.fetchWeatherInfo);
+        document.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter' && e.target.id == 'search') {
+
+                APP.fetchWeatherInfo();
+            }
+        });
+
         celcius.addEventListener('click', APP.getTemperatureInCelcious);
         farenhit.addEventListener('click', APP.getTemperatureInFarenhit);
         APP.fetchWeatherInfo();
